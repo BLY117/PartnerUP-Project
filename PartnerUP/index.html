@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width">
+      <title>PartnerUP</title>
+      <link rel="stylesheet" type="text/css" href="style.css">
+      <link rel="icon" href="https://cdn.glitch.global/071a6fe7-aaff-49e4-938b-d8341097a8ae/output-onlinegiftools(3).gif?v=1649346926749">
+      <script src="script.js"></script>
+      <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js" type="text/javascript" charset="utf-8"></script>
+      <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js" type="text/javascript" charset="utf-8"></script>
+      <script src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"
+            type="text/javascript" charset="utf-8"></script>
+        <link rel="stylesheet" type="text/css"
+            href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+      <script src="https://js.api.here.com/v3/3.1/mapsjs-clustering.js"
+     type="text/javascript" charset="utf-8"></script>
+      <script src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"
+       type="text/javascript" charset="utf-8"></script>
+    </head>
+
+    <body onload="myLocation()">
+
+        <section id="section1">
+   <form name = "LocationSearch" onsubmit="event.preventDefault(); getLocation()">
+      <div class="input-field" >
+        <input placeholder="Add Friend" style="border-radius:4px; color:black; background-color:#FFFFFF" id="location" name="location" type="text" value="">
+                <label for="location" style="color:white"></label>
+              <button type="submit" class="location_enter">ENTER</button>
+            </div>
+      </form> 
+        </section>
+
+        <section id="section2">
+          <!--map-->
+          <div id="map"></div>
+    
+          <!-- navbar -->
+          <div id="friendSidenav" class="friend_sidenav">
+            <a href="#" id="Friend1" onclick="f1()" onmouseover="f1H()" onmouseout="f1O()"><img id="friend1" class="friendImg" src="https://cdn.glitch.global/071a6fe7-aaff-49e4-938b-d8341097a8ae/p1-removebg-preview.png?v=1649333383707"><p class="label">Friend 1</p></a>
+            
+            <a href="#" id="Friend2" onclick="f2()" onmouseover="f2H()" onmouseout="f2O()"><img id="friend2" class="friendImg" src="https://cdn.glitch.global/071a6fe7-aaff-49e4-938b-d8341097a8ae/p2-removebg-preview.png?v=1649333383996"><p class="label">Friend 2</p></a>
+            
+            <a href="#" id="Friend3" onclick="f3()" onmouseover="f3H()" onmouseout="f3O()"><img id="friend3" class="friendImg" src="https://cdn.glitch.global/071a6fe7-aaff-49e4-938b-d8341097a8ae/p3-removebg-preview.png?v=1649333383222"><p class="label">Friend 3</p></a>
+            
+            <a href="#" id="Friend4" onclick="f4()" onmouseover="f4H()" onmouseout="f4O()"><img id="friend4" class="friendImg" src="https://cdn.glitch.global/071a6fe7-aaff-49e4-938b-d8341097a8ae/p4-removebg-preview.png?v=1649333383222"><p class="label">Friend 4</p></a>
+            
+            <a href="#" id="Friend5" onclick="f5()" onmouseover="f5H()" onmouseout="f5O()"><img id="friend5" class="friendImg" src="https://cdn.glitch.global/071a6fe7-aaff-49e4-938b-d8341097a8ae/p5-removebg-preview.png?v=1649333383633"><p class="label">Friend 5</p></a>
+            
+            <a href="#" id="Friend6" onclick="f6()" onmouseover="f6H()" onmouseout="f6O()"><img id="friend6" class="friendImg" src="https://cdn.glitch.global/071a6fe7-aaff-49e4-938b-d8341097a8ae/p6-removebg-preview.png?v=1649333383546"><p class="label">Friend 6</p></a>
+            
+            <a href="#" id="Friend7" onclick="f7()" onmouseover="f7H()" onmouseout="f7O()"><img id="friend7" class="friendImg" src="https://cdn.glitch.global/071a6fe7-aaff-49e4-938b-d8341097a8ae/p7-removebg-preview.png?v=1649333383222"><p class="label">Friend 7</p></a>
+
+            <a href="#" id="gas" onclick="gasloc()" onmouseover="img4Hover()" onmouseout="img4Out()"><img id="gasStation" class="friendImg" src="gasStation.png"><p class="label">Gas Station</p></a>
+
+            <a href="#" id="police" onclick="policeloc()" onmouseover="img7Hover()" onmouseout="img7Out()"><img id="station" class="friendImg" src="station.png"><p class="label">Police Station</p></a>
+        </div>
+        </section>
+
+   <!--   <section id="section3">
+        <div id="footer">
+          <button id="hyperlinks" onclick="document.getElementById('hyperModal').style.display='block'">
+            &copy; Hyperlinks
+          </button>
+          <div id="hyperModal" class="modal">
+            <div class="modal-content">
+              <span class="close" onclick="document.getElementById('hyperModal').style.display='none'">&times;</span>
+              <table style="width: 100%">
+                <tr>
+                  <td>Bradley Khan</td>
+                  <td>Brendon Lee Ying</td>
+                  <td>Kamilah Bass</td>
+                  <td>Kiel Hagley</td>
+                  <td>La Toya Paul</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div> 
+      </section> -->
+
+      
+      
+    <!--  <p>Click the button to get your coordinates.</p>
+
+<button onclick="myLocation()">My location</button>
+
+<p id="demo"></p> -->
+      
+       
+      
+      <script>
+
+        
+        var platform = new H.service.Platform({
+           'apikey': "YcCENT8xyCXaTqup7ViQ-GnfwpYzMNXJvuqzmhFwNcU"
+        });
+        
+        var defaultLayers = platform.createDefaultLayers();
+
+        var map = new H.Map(
+           document.getElementById('map'),
+           defaultLayers.vector.normal.map,
+        {
+           zoom: 13,
+          center: { lat: 10.6603, lng: -61.5086}
+           
+        });
+        
+        window.addEventListener('resize', () => map.getViewPort().resize());
+        
+        var ui = H.ui.UI.createDefault(map, defaultLayers); 
+        
+        var service = platform.getSearchService(); 
+         
+        
+        var mapEvents = new H.mapevents.MapEvents(map);
+
+      map.addEventListener('tap', function(evt) {
+    
+      console.log(evt.type, evt.currentPointer.type); 
+      });
+        
+        var behavior = new H.mapevents.Behavior(mapEvents); 
+
+        group = new H.map.Group();
+        
+        map.addObject(group);
+        
+        marker = new H.map.Marker(map.getCenter());
+        
+        group.addObject(marker);
+
+        var svgMarkup = '<svg width="36px" height="36px" viewBox="-4 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' + 
+    '<g id="Vivid.JS" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' + 
+        '<g id="Vivid-Icons" transform="translate(-125.000000, -643.000000)">' +
+            '<g id="Icons" transform="translate(37.000000, 169.000000)">' +
+                '<g id="map-marker" transform="translate(78.000000, 468.000000)">' +
+                    '<g transform="translate(10.000000, 6.000000)">' +
+                        '<path d="M14,0 C21.732,0 28,5.641 28,12.6 C28,23.963 14,36 14,36 C14,36 0,24.064 0,12.6 C0,5.641 6.268,0 14,0 Z" id="Shape" fill="#FF6E6E"></path>' +
+                        '<circle id="Oval" fill="#0C0058" fill-rule="nonzero" cx="14" cy="14" r="7"></circle>' +
+                    '</g>' +
+                '</g>' +
+            '</g>' +
+        '</g>' +
+    '</g>' +
+'</svg>'
+
+      var svgPoliceMarkup = '<svg width="36px" height="36px" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--twemoji" preserveAspectRatio="xMidYMid meet"><path fill="#55ACEE" d="M1.061 19.062a1.506 1.506 0 0 1 0-2.122L16.94 1.061a1.506 1.506 0 0 1 2.122 0L34.94 16.94a1.505 1.505 0 0 1 0 2.121L19.062 34.939a1.506 1.506 0 0 1-2.122 0L1.061 19.062z"></path></svg>'
+
+     var svgGasMarkup = '<svg id="Layer_1" width="30px" height="30px" style="enable-background:new 0 0 30 30;" version="1.1" viewBox="0 0 30 30" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><style type="text/css">'+
+	'.st0{fill:#FD6A7E;}'+
+	'.st1{fill:#17B978;}'+
+	'.st2{fill:#8797EE;}'+
+	'.st3{fill:#41A6F9;}'+
+	'.st4{fill:#37E0FF;}'+
+	'.st5{fill:#2FD9B9;}'+
+	'.st6{fill:#F498BD;}'+
+	'.st7{fill:#FFDF1D;}'+
+	'.st8{fill:#C6C9CC;}'+
+'</style><path class="st7" d="M27,8h-2c-2.2,0-4,1.8-4,4v7c0,0.6-0.4,1-1,1h-1V5c0-0.6-0.4-1-1-1H6C5.4,4,5,4.4,5,5v20H4c-0.6,0-1,0.4-1,1v1  h18v-1c0-0.6-0.4-1-1-1h-1v-3h1c1.7,0,3-1.3,3-3v-7h1c1.1,0,2-0.9,2-2h1c0.6,0,1-0.4,1-1S27.6,8,27,8z M8,11c0-2.2,1.8-4,4-4  s4,1.8,4,4v1h-2.9c0-0.2-0.1-0.3-0.2-0.4l-1.3-1.9c-0.2-0.2-0.5-0.4-0.8-0.3c-0.4,0.1-0.6,0.5-0.4,0.9L11,12H8V11z"/></svg>'
+
+      var svgUserMarkup = '<svg height="28px" version="1.1" viewBox="0 0 58 58" width="58px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title/><desc/><defs/><g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1"><g id="019---Star" transform="translate(-1.000000, 0.000000)"><path d="M31.7569,1.14435 L39.2006,16.94809 C39.4742047,17.5450605 40.0274966,17.9662669 40.67576,18.07109 L57.32037,20.60534 C58.0728338,20.7512497 58.6840769,21.2991656 58.9110909,22.0312558 C59.1381048,22.7633461 58.9440977,23.560962 58.4062,24.107 L46.36205,36.40845 C45.8969861,36.8906851 45.6879532,37.5647752 45.79858,38.22553 L48.64182,55.59553 C48.7969313,56.3422303 48.5093863,57.1116407 47.9025754,57.5735945 C47.2957646,58.0355484 46.4775729,58.1079148 45.7991,57.75964 L30.9117,49.55864 C30.3445605,49.2442297 29.6554395,49.2442297 29.0883,49.55864 L14.2009,57.75964 C13.5224271,58.1079148 12.7042354,58.0355484 12.0974246,57.5735945 C11.4906137,57.1116407 11.2030687,56.3422303 11.35818,55.59553 L14.20142,38.22553 C14.3120468,37.5647752 14.1030139,36.8906851 13.63795,36.40845 L1.5938,24.107 C1.05593046,23.5609597 0.861941478,22.7633618 1.08895299,22.0312898 C1.31596449,21.2992177 1.92718692,20.7513115 2.67963,20.60539 L19.32424,18.0711 C19.9725034,17.9662769 20.5257953,17.5450705 20.7994,16.9481 L28.2431,1.14435 C28.5505421,0.448721422 29.2394609,-5.16717968e-06 30,-5.16717968e-06 C30.7605391,-5.16717968e-06 31.4494579,0.448721422 31.7569,1.14435 Z" fill="#F6AB27" id="Shape"/><path d="M37.39,13.11 C32.5890747,15.6770414 28.15587,18.8791741 24.21,22.63 C20.0044812,26.6560517 16.436883,31.2993247 13.63,36.4 L1.59009,24.11 C1.05224467,23.5636351 0.858777828,22.7655877 1.086713,22.0335783 C1.31464817,21.3015689 1.92698179,20.7544339 2.67993,20.61 L19.32007,18.07 C19.967444,17.9624793 20.520694,17.5438036 20.80007,16.95 L28.24,1.14 C28.5507895,0.446404951 29.2399578,1.95277886e-05 30,1.95277886e-05 C30.7600422,1.95277886e-05 31.4492105,0.446404951 31.76,1.14 L37.39,13.11 Z" fill="#F4CD1E" id="Shape"/></g></g></svg>'
+
+
+          var dataPoints = [];
+dataPoints.push(new H.clustering.DataPoint(10.620624, -61.258264));
+dataPoints.push(new H.clustering.DataPoint(10.621109, -61.315513));
+dataPoints.push(new H.clustering.DataPoint(10.553719, -61.370916));
+dataPoints.push(new H.clustering.DataPoint(10.521906, -61.402674));
+dataPoints.push(new H.clustering.DataPoint(10.579959, -61.334267));
+dataPoints.push(new H.clustering.DataPoint(10.649389, -61.496401));
+dataPoints.push(new H.clustering.DataPoint(10.645361, -61.401418));
+
+    var clusteredDataProvider = new H.clustering.Provider(dataPoints);
+
+    var layer = new H.map.layer.ObjectLayer(clusteredDataProvider);
+    
+    map.addLayer(layer);
+
+
+        
+        
+      </script>  
+
+  </body>
+</html>
